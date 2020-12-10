@@ -2,6 +2,7 @@
 
 public class TetrisManager : MonoBehaviour
 {
+    #region
     [Header("掉落時間"),Range(0.1f,3)]
     public float Droptime = 1.5f;
     [Header("目前分數")]
@@ -17,6 +18,24 @@ public class TetrisManager : MonoBehaviour
     public AudioClip soundMove;
     public AudioClip soundEliminate;
     public AudioClip soundGmEnd;
+    #endregion
 
+    #region //事件
+    
+    #endregion
+
+    #region  //方法
+    
+    private void s()
+    {
+        print("生成俄羅斯方塊");
+    }
+
+    public void ( )
+    {
+
+    }
+
+    #endregion
 
 }

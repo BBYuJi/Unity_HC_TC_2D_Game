@@ -2,6 +2,7 @@
 
 public class Car : MonoBehaviour
 {
+    #region 欄位
     // 註解 (說明)
     // 數值
     // 語法
@@ -48,6 +49,10 @@ public class Car : MonoBehaviour
     public Transform trA;
     public Camera cma;
 
+    #endregion
+
+    #region 事件
+
     private void Start()
     {
         print("哈囉,沃德");
@@ -61,6 +66,54 @@ public class Car : MonoBehaviour
 
         haswindow = false;
 
+        //無傳回
+
+        MethodA();
+
+        //有傳回
+
+        int intA = MeB();
+        print(intA);
+
+        MethodC(10);
+
+        float b = BMI(70,1.74f);
+        print("BMI:" + b);
+
+    #endregion
+    }
+    
+
+    #region 方法
+
+
+    //無傳回 void
+
+    private void MethodA()
+    {
+        print("00000000");
+        print("11111111");
+    }
+   
+
+    //有傳回
+
+    private int MeB()
+    {
+        return 001;
+    }
+    
+    private void MethodC(int number)
+    {
+        number += 10;
+        print("累加後" + number);
     }
 
+    private float BMI(float w,float h)
+    {
+        float bmi = w / (h * h);
+        return bmi;
+    }
+
+    #endregion
 }
