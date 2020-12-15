@@ -26,15 +26,50 @@ public class TetrisManager : MonoBehaviour
 
     #region  //方法
     
-    private void s()
-    {
-        print("生成俄羅斯方塊");
-    }
-
-    public void ( )
+    /// <summary>
+    /// 生成俄羅斯方塊
+    /// </summary>
+    private void produce()
     {
 
     }
+    /// <summary>
+    /// 添加分數
+    /// </summary>
+    /// <param name="">增加的分數</param>
+    public void addc(int addA)
+    {
+
+    }
+    /// <summary>
+    /// 遊戲時間
+    /// </summary>
+    private void timegame()
+    {
+
+    }
+    /// <summary>
+    /// 遊戲結束
+    /// </summary>
+    private void gameover()
+    {
+
+    }
+    /// <summary>
+    /// 重新遊戲
+    /// </summary>
+    public void replay()
+    {
+
+    }
+    /// <summary>
+    /// 離開遊戲
+    /// </summary>
+    public void excgame1()
+    {
+
+    }
+
 
     #endregion
 
