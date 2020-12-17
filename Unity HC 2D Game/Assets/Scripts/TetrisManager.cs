@@ -18,21 +18,57 @@ public class TetrisManager : MonoBehaviour
     public AudioClip soundMove;
     public AudioClip soundEliminate;
     public AudioClip soundGmEnd;
-    #endregion
+    [Header("下一顆俄羅斯方塊區域")]
+    public Transform traNextA;
+    [Header("畫布")]
+    public Transform trAAA;
 
-    #region //事件
-    
-    #endregion
 
-    #region  //方法
-    
+    /// <summary>
+    /// 下一顆俄羅斯編號
+    /// </summary>
+    public int indexNext;
+
+    private void Start()
+    {
+        produce();
+    }
+
+
+
     /// <summary>
     /// 生成俄羅斯方塊
+    /// 隨機顯示下一顆
     /// </summary>
     private void produce()
     {
+        // 下一顆編號 = 隨機.範圍(最小,最大) 整數不等於最大值
+        indexNext=  Random.Range(0, 7);
+        // 下一顆俄羅斯方塊區域.取得子物件(子物件編號).轉為遊戲物件.啟動設定(顯示)
+        traNextA.GetChild(indexNext).gameObject.SetActive(true);
 
     }
+
+    /// <summary>
+    /// 開始遊戲
+    /// 1. 生成方塊要放在正確位置
+    /// 2. 上一次方塊隱藏
+    /// 3. 隨機取得下一塊
+    /// </summary>
+    public void StarGame()
+    {
+        // 保存上一次的方塊
+        GameObject tetris = traNextA.GetChild(indexNext).gameObject;
+        // 生成物件(物件,父物件)
+        GameObject current= Instantiate(tetris,trAAA);
+        // GetComponent<任何元件>()
+        // <T> 泛型 - 指的是所有類型
+        current.GetComponent<RectTransform>().anchoredPosition = new Vector2(10,270);
+
+
+    }
+
+
     /// <summary>
     /// 添加分數
     /// </summary>
