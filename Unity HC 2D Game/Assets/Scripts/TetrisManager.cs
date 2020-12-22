@@ -61,18 +61,29 @@ public class TetrisManager : MonoBehaviour
                 timer = 0;
                 TetrisA.anchoredPosition -= new Vector2(0, 50);
             }
+            #region 方塊控制
 
-            // || 或者 (輸入: shift + |)
-            // 按下 D 往右 移動 50
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            // 如果 往右 X < 260 才能移動
+            if (TetrisA.anchoredPosition.x < 270)
             {
-                TetrisA.anchoredPosition += new Vector2(50, 0);
+                // || 或者 (輸入: shift + |)
+                // 按下 D 往右 移動 50
+                if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    TetrisA.anchoredPosition += new Vector2(30, 0);
+                }
+
             }
 
-            // 按下 A 往右 移動 50
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            // 如果 往左 X > -230 才能移動
+            if (TetrisA.anchoredPosition.x > -230)
             {
-                TetrisA.anchoredPosition -= new Vector2(50, 0);
+                // 按下 A 往右 移動 50
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    TetrisA.anchoredPosition -= new Vector2(30, 0);
+                }
+
             }
 
             // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
@@ -80,6 +91,23 @@ public class TetrisManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 TetrisA.eulerAngles += new Vector3(0, 0, 90);
+            }
+
+            //按下 S 掉落速度加速
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                Droptime = 0.2f;
+            }
+            else     //  否則 恢復 速度
+            {
+                Droptime = 1.5f;
+            }
+            #endregion
+
+            // 如果 目前方塊 Y軸 = -300 就呼叫下一顆
+            if (TetrisA.anchoredPosition.y == -200)
+            {
+                StarGame();
             }
         }
 

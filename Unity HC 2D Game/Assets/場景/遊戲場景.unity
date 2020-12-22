@@ -1009,9 +1009,6 @@ MonoBehaviour:
   soundGmEnd: {fileID: 0}
   traNextA: {fileID: 975811305}
   trAAA: {fileID: 1359649720}
-  indexNext: 0
-  TetrisA: {fileID: 0}
-  timer: 0
 --- !u!4 &697898883
 Transform:
   m_ObjectHideFlags: 0
@@ -1842,8 +1839,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -435, y: 230}
-  m_SizeDelta: {x: 362.5, y: 94.5}
+  m_AnchoredPosition: {x: -451.6, y: 230}
+  m_SizeDelta: {x: 329.3, y: 85.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068306307
 MonoBehaviour:
@@ -2827,8 +2824,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -435, y: 90}
-  m_SizeDelta: {x: 362.5, y: 104.6}
+  m_AnchoredPosition: {x: -451.6, y: 90}
+  m_SizeDelta: {x: 329.3, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1585019504
 MonoBehaviour:
@@ -3203,8 +3200,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 52.546}
-  m_SizeDelta: {x: 500, y: 615.09}
+  m_AnchoredPosition: {x: 25.000015, y: 56.319}
+  m_SizeDelta: {x: 600, y: 607.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697447683
 MonoBehaviour:
