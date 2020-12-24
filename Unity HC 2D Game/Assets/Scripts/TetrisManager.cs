@@ -22,6 +22,17 @@ public class TetrisManager : MonoBehaviour
     public Transform traNextA;
     [Header("畫布")]
     public Transform trAAA;
+    [Header("生成的起始位置")]
+    public Vector2[] posSpawn =
+    {
+        new Vector2(15,380),
+        new Vector2(15,380),
+        new Vector2(15,380),
+        new Vector2(15,380),
+        new Vector2(15,400),
+        new Vector2(15,380),
+        new Vector2(0,380)
+    };
 
 
     /// <summary>
@@ -126,6 +137,7 @@ public class TetrisManager : MonoBehaviour
 
     }
 
+    #region  開始遊戲
     /// <summary>
     /// 開始遊戲
     /// 1. 生成方塊要放在正確位置
@@ -141,8 +153,8 @@ public class TetrisManager : MonoBehaviour
         GameObject current = Instantiate(tetris, trAAA);
         // GetComponent<任何元件>()
         // <T> 泛型 - 指的是所有類型
-        // 目前俄羅斯方塊 . 取得元件<介面變形>() . 座標 = 二維向量
-        current.GetComponent<RectTransform>().anchoredPosition = new Vector2(10, 400);
+        // 目前俄羅斯方塊 . 取得元件<介面變形>() . 座標 = 陣列 [編號]
+        current.GetComponent<RectTransform>().anchoredPosition = posSpawn[indexNext];
 
         // 2. 上一次方塊隱藏
         tetris.SetActive(false);
@@ -154,7 +166,7 @@ public class TetrisManager : MonoBehaviour
         TetrisA = current.GetComponent<RectTransform>();
 
     }
-
+    #endregion
 
     /// <summary>
     /// 添加分數
