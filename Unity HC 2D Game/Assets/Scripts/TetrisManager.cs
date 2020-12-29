@@ -70,26 +70,33 @@ public class TetrisManager : MonoBehaviour
             if (timer >= Droptime)
             {
                 timer = 0;
-                TetrisA.anchoredPosition -= new Vector2(0, 50);
+                TetrisA.anchoredPosition -= new Vector2(0, 30);
             }
             #region 方塊控制
 
-            // 如果 往右 X < 260 才能移動
-            if (TetrisA.anchoredPosition.x < 270)
+            // 取得目前方塊的 Tetris 腳本
+            Tetris tetris = TetrisA.GetComponent<Tetris>();
+
+            // 如果 往右 X < 280 才能移動
+            // if (TetrisA.anchoredPosition.x < 280)
+            // 如果 方塊 沒有碰到 右邊牆壁
+            if (!tetris.wallright)
             {
                 // || 或者 (輸入: shift + |)
-                // 按下 D 往右 移動 50
+                // 按下 D 往右 移動 30
                 if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     TetrisA.anchoredPosition += new Vector2(30, 0);
                 }
 
             }
-
+                      
             // 如果 往左 X > -230 才能移動
-            if (TetrisA.anchoredPosition.x > -230)
+            // if (TetrisA.anchoredPosition.x > -230)
+            if (!tetris.wallleft)
             {
-                // 按下 A 往右 移動 50
+                                
+                // 按下 A 往右 移動 30
                 if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     TetrisA.anchoredPosition -= new Vector2(30, 0);
@@ -97,31 +104,32 @@ public class TetrisManager : MonoBehaviour
 
             }
 
+           
+
             // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
             // 按下 W 旋轉 90
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 TetrisA.eulerAngles += new Vector3(0, 0, 90);
             }
-
+                        
             //按下 S 掉落速度加速
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
-                Droptime = 0.2f;
+                Droptime = 0.3f;
             }
             else     //  否則 恢復 速度
             {
                 Droptime = 1.5f;
             }
-            #endregion
-
-            // 如果 目前方塊 Y軸 = -300 就呼叫下一顆
-            if (TetrisA.anchoredPosition.y == -200)
+              
+            // 如果 方塊 碰到地板 就重新 遊戲(生成) 
+            if (tetris.walldown)
             {
                 StarGame();
             }
         }
-
+#endregion
     }
 
     /// <summary>

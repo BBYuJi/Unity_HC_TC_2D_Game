@@ -452,5 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e82229e47a6d442832f5d56a98f75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lenght0: 0.8
-  lenght90: 0.6
+  lenght0: 0.7
+  lenght90: 0.5
+  lenght: 0.7
+  wallright: 0
+  wallleft: 0
