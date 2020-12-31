@@ -26,7 +26,7 @@ public class MenuManger : MonoBehaviour
         Invoke("excGmae", 1.7f);
     }
 
-
+    
 
     /// <summary>
     /// 開始遊戲

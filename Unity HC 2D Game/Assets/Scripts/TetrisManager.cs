@@ -20,16 +20,16 @@ public class TetrisManager : MonoBehaviour
     public AudioClip soundGmEnd;
     [Header("下一顆俄羅斯方塊區域")]
     public Transform traNextA;
-    [Header("畫布")]
-    public Transform trAAA;
+    [Header("生成方塊父物件")]
+    public Transform traTetrisParen;
     [Header("生成的起始位置")]
     public Vector2[] posSpawn =
     {
+        new Vector2(30,365),
+        new Vector2(30,365),
         new Vector2(15,380),
         new Vector2(15,380),
         new Vector2(15,380),
-        new Vector2(15,380),
-        new Vector2(15,400),
         new Vector2(15,380),
         new Vector2(0,380)
     };
@@ -104,14 +104,21 @@ public class TetrisManager : MonoBehaviour
 
             }
 
-           
 
-            // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
+
+            // 如果 方塊可以旋轉
             // 按下 W 旋轉 90
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
+            if (tetris.canRot)
             {
-                TetrisA.eulerAngles += new Vector3(0, 0, 90);
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    TetrisA.eulerAngles += new Vector3(0, 0, 90);
+
+                    tetris.off();
+                }
             }
+            
                         
             //按下 S 掉落速度加速
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
@@ -140,6 +147,8 @@ public class TetrisManager : MonoBehaviour
     {
         // 下一顆編號 = 隨機.範圍(最小,最大) 整數不等於最大值
         indexNext = Random.Range(0, 7);
+        // 測試
+        // indexNext = 0;
         // 下一顆俄羅斯方塊區域.取得子物件(子物件編號).轉為遊戲物件.啟動設定(顯示)
         traNextA.GetChild(indexNext).gameObject.SetActive(true);
 
@@ -158,7 +167,7 @@ public class TetrisManager : MonoBehaviour
         // 保存上一次的方塊
         GameObject tetris = traNextA.GetChild(indexNext).gameObject;
         // 生成物件(物件,父物件)
-        GameObject current = Instantiate(tetris, trAAA);
+        GameObject current = Instantiate(tetris, traTetrisParen);
         // GetComponent<任何元件>()
         // <T> 泛型 - 指的是所有類型
         // 目前俄羅斯方塊 . 取得元件<介面變形>() . 座標 = 陣列 [編號]
