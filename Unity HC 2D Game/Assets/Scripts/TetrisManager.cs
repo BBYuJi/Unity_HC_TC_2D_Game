@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;    // 引用  系統.集合  API  - 協同程序
+
 
 public class TetrisManager : MonoBehaviour
 {
@@ -40,6 +42,8 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     private int indexNext;
 
+
+
     /// <summary>
     /// 目前方塊
     /// </summary>
@@ -55,11 +59,21 @@ public class TetrisManager : MonoBehaviour
         produce();
     }
 
+    // 更新事件 : 一秒執行的 60 次
     private void Update()
     {
         ControlTertis();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // 啟動協同程序(協同方法());
+            StartCoroutine(ShakeEffect());
+        }
     }
 
+    /// <summary>
+    /// 方塊控制
+    /// </summary>
     private void ControlTertis()
     {
         // 如果 已經有 目前方塊
@@ -72,7 +86,7 @@ public class TetrisManager : MonoBehaviour
                 timer = 0;
                 TetrisA.anchoredPosition -= new Vector2(0, 30);
             }
-            #region 方塊控制
+
 
             // 取得目前方塊的 Tetris 腳本
             Tetris tetris = TetrisA.GetComponent<Tetris>();
@@ -90,12 +104,12 @@ public class TetrisManager : MonoBehaviour
                 }
 
             }
-                      
+
             // 如果 往左 X > -230 才能移動
             // if (TetrisA.anchoredPosition.x > -230)
             if (!tetris.wallleft)
             {
-                                
+
                 // 按下 A 往右 移動 30
                 if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
@@ -109,17 +123,17 @@ public class TetrisManager : MonoBehaviour
             // 如果 方塊可以旋轉
             // 按下 W 旋轉 90
             // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
-            if (tetris.canRot)
-            {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    TetrisA.eulerAngles += new Vector3(0, 0, 90);
 
-                    tetris.off();
-                }
+
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                TetrisA.eulerAngles += new Vector3(0, 0, 90);
+
+                tetris.offset();
             }
-            
-                        
+
+
+
             //按下 S 掉落速度加速
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
@@ -129,14 +143,13 @@ public class TetrisManager : MonoBehaviour
             {
                 Droptime = 1.5f;
             }
-              
+
             // 如果 方塊 碰到地板 就重新 遊戲(生成) 
             if (tetris.walldown)
             {
                 StarGame();
             }
         }
-#endregion
     }
 
     /// <summary>
@@ -147,8 +160,10 @@ public class TetrisManager : MonoBehaviour
     {
         // 下一顆編號 = 隨機.範圍(最小,最大) 整數不等於最大值
         indexNext = Random.Range(0, 7);
+
         // 測試
-        // indexNext = 0;
+        // indexNext = 4;
+
         // 下一顆俄羅斯方塊區域.取得子物件(子物件編號).轉為遊戲物件.啟動設定(顯示)
         traNextA.GetChild(indexNext).gameObject.SetActive(true);
 
@@ -184,6 +199,17 @@ public class TetrisManager : MonoBehaviour
 
     }
     #endregion
+
+    [Header("分數判定區域")]
+    public Transform traScoreArea;
+
+    /// <summary>
+    /// 檢查方塊是否連線
+    /// </summary>
+    private void CheckTetris()
+    {
+
+    }
 
     /// <summary>
     /// 添加分數
@@ -222,6 +248,33 @@ public class TetrisManager : MonoBehaviour
 
     }
 
+    // 協同程序
+    // IEnumerator 傳回類型 - 時間
+    private IEnumerator ShakeEffect()
+    {
+        // print("協同程序一開始");
+        // yield return new WaitForSeconds(1f);
+        // print("等待一秒過後...");
+        // yield return new WaitForSeconds(2f);
+        // print("又過二秒過!!");
+
+        //取得震動效果物件的 Rect
+        RectTransform rect = traTetrisParen.GetComponent<RectTransform>();
+
+        // 晃動 向上 30 > 0 > 20 > 0
+        // 等待 0.05
+        float interval = 0.05f;
+
+        rect.anchoredPosition += Vector2.up * 30;
+        yield return new WaitForSeconds(interval);
+        rect.anchoredPosition = Vector2.zero;
+        yield return new WaitForSeconds(interval);
+        rect.anchoredPosition += Vector2.up * 20;
+        yield return new WaitForSeconds(interval);
+        rect.anchoredPosition = Vector2.zero;
+        yield return new WaitForSeconds(interval);
+
+    }
 
     #endregion
 

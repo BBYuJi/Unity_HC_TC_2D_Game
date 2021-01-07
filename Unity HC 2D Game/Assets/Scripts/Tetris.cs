@@ -110,6 +110,9 @@ public class Tetris : MonoBehaviour
         lenght = lenght0;
 
         rect = GetComponent<RectTransform>();
+
+        // 偵測有的子物件(小方塊) 就新增幾個陣列
+        smallRightAll = new bool [transform.childCount];
     }
 
     private void Update()
@@ -117,7 +120,17 @@ public class Tetris : MonoBehaviour
         CheakX();
     }
 
-    
+    /// <summary>
+    /// 小方塊底部碰撞
+    /// </summary>
+    public bool smallBottom;
+
+    public bool smallRight;
+
+    /// <summary>
+    /// 所有方塊右邊是否有其他方塊
+    /// </summary>
+    public bool[] smallRightAll;
  
 
     private void CheakX()
@@ -175,7 +188,7 @@ public class Tetris : MonoBehaviour
     /// <summary>
     /// 旋轉後位移的處理
     /// </summary>
-    public void off()
+    public void offset()
     {
         // 將浮點數轉為整數
         int z = (int)transform.eulerAngles.z;
