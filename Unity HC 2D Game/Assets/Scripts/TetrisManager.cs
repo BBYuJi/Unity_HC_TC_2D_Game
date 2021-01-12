@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;           // 引用介面API
+using System.Linq;             // 查詢語言
 using System.Collections;    // 引用  系統.集合  API  - 協同程序
+
 
 
 public class TetrisManager : MonoBehaviour
@@ -64,11 +67,7 @@ public class TetrisManager : MonoBehaviour
     {
         ControlTertis();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // 啟動協同程序(協同方法());
-            StartCoroutine(ShakeEffect());
-        }
+        FastDown();
     }
 
     /// <summary>
@@ -124,34 +123,65 @@ public class TetrisManager : MonoBehaviour
             // 按下 W 旋轉 90
             // 屬性面板上面的 Rotation 必須用 eulerAngles 控制
 
-
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if (tetris.canRot)
             {
-                TetrisA.eulerAngles += new Vector3(0, 0, 90);
+                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    TetrisA.eulerAngles += new Vector3(0, 0, 90);
 
-                tetris.offset();
+                    tetris.offset();
+                }
             }
+            
 
 
-
-            //按下 S 掉落速度加速
-            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            if (!fastDown)                      // 如果 沒有在快速落下 才能 加速
             {
-                Droptime = 0.3f;
-            }
-            else     //  否則 恢復 速度
-            {
-                Droptime = 1.5f;
-            }
+                //按下 S 掉落速度加速
+                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                {
+                    Droptime = 0.15f;
+                }
+                else     //  否則 恢復 速度
+                {
+                    Droptime = 1.5f;
+                }
 
-            // 如果 方塊 碰到地板 就重新 遊戲(生成) 
-            if (tetris.walldown)
-            {
-                StarGame();
+                // 如果 方塊 碰到地板 就重新 遊戲(生成) 
+                if (tetris.walldown)
+                {
+                    SetGround();                                    // 設定為地板
+                    StarGame();                                     // 生成下一顆
+                    StartCoroutine(ShakeEffect());                  // 晃動效果   <啟動協同程序(協同方法());>
+                }
             }
+            
         }
     }
 
+    /// <summary>
+    /// 設定掉落後變為地板
+    /// </summary>
+    private void SetGround()
+    {
+        /** 迴圈 : for 
+        //(初始值 ; 條件 ; 迭代器)
+        for (int i = 0; i < 10; i++)
+        {
+
+            print("迴圈 : " + i);
+        }
+        */
+
+        int count = TetrisA.childCount;                             // 取得 目前 方塊 的子物件數量
+
+        for (int i = 0; i < count; i++)                             // 迴圈 執行 子物件數量次數
+        {
+            TetrisA.GetChild(i).name = "地板";                      // 名稱改為地板
+            TetrisA.GetChild(i).gameObject.layer = 9;               // 圖層改為地板 
+        }
+    }
+    
     /// <summary>
     /// 生成俄羅斯方塊
     /// 隨機顯示下一顆
@@ -162,7 +192,7 @@ public class TetrisManager : MonoBehaviour
         indexNext = Random.Range(0, 7);
 
         // 測試
-        // indexNext = 4;
+        // indexNext = 2;
 
         // 下一顆俄羅斯方塊區域.取得子物件(子物件編號).轉為遊戲物件.啟動設定(顯示)
         traNextA.GetChild(indexNext).gameObject.SetActive(true);
@@ -178,6 +208,8 @@ public class TetrisManager : MonoBehaviour
     /// </summary>
     public void StarGame()
     {
+        fastDown = false;               // 碰到地板後，沒有快速落下
+
         // 1. 生成方塊要放在正確位置
         // 保存上一次的方塊
         GameObject tetris = traNextA.GetChild(indexNext).gameObject;
@@ -252,6 +284,8 @@ public class TetrisManager : MonoBehaviour
     // IEnumerator 傳回類型 - 時間
     private IEnumerator ShakeEffect()
     {
+        yield return new WaitForSeconds(0.05f);
+
         // print("協同程序一開始");
         // yield return new WaitForSeconds(1f);
         // print("等待一秒過後...");
@@ -275,6 +309,30 @@ public class TetrisManager : MonoBehaviour
         yield return new WaitForSeconds(interval);
 
     }
+
+    /// <summary>
+    /// 是否快速落下
+    /// </summary>
+    private bool fastDown;
+
+    /// <summary>
+    /// 快速掉落功能
+    /// </summary>
+    private void FastDown()
+    {
+        if (TetrisA && !fastDown)                                            // 如果 有 目前方塊
+        {
+            if (Input.GetKeyDown(KeyCode.Space))                // 如果 按下 空白鍵
+            {
+                fastDown = true;                                // 正在快速落下
+
+                timer = 0.018f;                                  // 掉落時間
+
+                
+            }
+        }
+    }
+
 
     #endregion
 

@@ -456,8 +456,8 @@ MonoBehaviour:
   lenght90: 1
   offX: -15
   offY: 15
-  lenghtRot0r: 0
-  lenghtRot0l: 0
+  lenghtRot0r: 1
+  lenghtRot0l: 1
   lenghtRot90r: 0
   lenghtRot90l: 0
   wallright: 0

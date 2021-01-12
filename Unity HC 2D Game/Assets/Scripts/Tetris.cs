@@ -2,6 +2,7 @@
 
 public class Tetris : MonoBehaviour
 {
+    #region 欄位
 
     [Header("角度為零，線性的長度")]
     public float lenght0;
@@ -46,12 +47,18 @@ public class Tetris : MonoBehaviour
 
     private RectTransform rect;
 
-    #region 繪製圖示
+    #endregion
+
+    [Header("每一顆小方塊的射線長度"), Range(0f, 2f)]
+    public float smallLenght = 0.5f;
+
+    #region 事件
     /// <summary>
     /// 繪製圖示  OnDrawGizmos
     /// </summary>
     private void OnDrawGizmos()
     {
+        #region 判定牆壁與地板
         // 將浮點數轉為整數
         int z = (int)transform.eulerAngles.z;
 
@@ -99,9 +106,13 @@ public class Tetris : MonoBehaviour
             Gizmos.DrawRay(transform.position, Vector3.left * lenghtRot90l);
 
         }
+        #endregion
 
+        #region 每一顆判定
+
+        #endregion
     }
-    #endregion
+
 
 
     private void Start()
@@ -120,6 +131,9 @@ public class Tetris : MonoBehaviour
         CheakX();
     }
 
+    #endregion
+
+    #region 方法
     /// <summary>
     /// 小方塊底部碰撞
     /// </summary>
@@ -160,8 +174,8 @@ public class Tetris : MonoBehaviour
         }
 
         // 旋轉射線
-        RaycastHit2D hitRotR = Physics2D.Raycast(transform.position, Vector3.right, lenght, 1 << 8);
-        RaycastHit2D hitRotL = Physics2D.Raycast(transform.position, -Vector3.right, lenght, 1 << 8);
+        RaycastHit2D hitRotR = Physics2D.Raycast(transform.position, Vector3.right, lenghtRot0r, 1 << 8);
+        RaycastHit2D hitRotL = Physics2D.Raycast(transform.position, -Vector3.right, lenghtRot0l, 1 << 8);
 
         if (hitRotR && hitRotR.transform.name == "牆右" || hitRotL && hitRotL.transform.name == "牆左")
         {
@@ -203,5 +217,5 @@ public class Tetris : MonoBehaviour
         }
 
     }
-        
+    #endregion
 }
