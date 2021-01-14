@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;                    // 引用 系統.查尋語言 API - 偵測陣列 清單內的資料
 
 public class Tetris : MonoBehaviour
 {
@@ -109,7 +110,17 @@ public class Tetris : MonoBehaviour
         #endregion
 
         #region 每一顆判定
-
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawRay(transform.GetChild(i).position, Vector2.down * smallLenght);
+        }
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawRay(transform.GetChild(i).position, Vector2.right * smallLenght);
+            Gizmos.DrawRay(transform.GetChild(i).position, Vector2.left * smallLenght);
+        }
         #endregion
     }
 
@@ -129,23 +140,96 @@ public class Tetris : MonoBehaviour
     private void Update()
     {
         CheakX();
+        ChcckBottom();
+        checkLeftRight();
     }
 
     #endregion
 
+    #region 檢查底部是否有其他方塊
+
+    /// <summary>
+    /// 小方塊底部碰撞
+    /// </summary>
+    public bool smallBotton;
+    public bool smalright;
+    public bool smalleft;
+
+    /// <summary>
+    /// 所有方塊右邊是否有其他方塊
+    /// </summary>
+    public bool[] smallRightAll;
+    /// <summary>
+    /// 所有方塊左邊是否有其他方塊
+    /// </summary>
+    public bool[] smallLeftAll;
+
+    /// <summary>
+    /// 檢查左右邊是否有其他方塊
+    /// </summary>
+    private void checkLeftRight()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+
+            RaycastHit2D hitR = Physics2D.Raycast(transform.GetChild(i).position, Vector3.right, smallLenght, 1 << 10);
+
+            if (hitR && hitR.collider.name == "方塊") // smalright = true;
+                                                          // else smalright = false;
+                smallRightAll[i] = true;                    // 將陣列對應的格子勾選
+            else smallRightAll[i] = false;
+
+            RaycastHit2D hitL = Physics2D.Raycast(transform.GetChild(i).position, Vector3.left, smallLenght, 1 << 10);
+
+            if (hitL && hitL.collider.name == "方塊") smallLeftAll[i] = true;
+            else smallLeftAll[i] = false;
+        }
+
+        // 檢查陣列內 等於( => ) ture 的資料
+        // 陣列.哪裡( 代名詞 => 條件 )
+        // var無類型
+        var allRight = smallRightAll.Where(x => x == true);
+
+        // 測試
+        // print(allRight.ToArray().Length);                     // 轉為陣列 數量
+        smallRight = allRight.ToArray().Length > 0;
+
+        var allLeft = smallRightAll.Where(x => x == true);
+        smallLeft = allLeft.ToArray().Length > 0;
+    }
+
+    
+    /// <summary>
+    /// 檢查底部是否有其他方塊
+    /// </summary>
+    private void ChcckBottom()
+    {
+        // 迴圈執行每一顆方塊
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            // 每一顆小方塊 射線(每一顆小方塊中心點，向下，長度，圖層)
+            RaycastHit2D hitdown = Physics2D.Raycast(transform.GetChild(i).position, Vector3.down, smallLenght, 1 << 10);
+
+          //  print(hitdown.collider.name);
+
+            if (hitdown && hitdown.collider.name == "方塊") smallBotton = true;
+            // {
+            // 如 只有一行 {} 可省去
+            // }
+        }
+    }
+    #endregion
+
+
     #region 方法
+
     /// <summary>
     /// 小方塊底部碰撞
     /// </summary>
     public bool smallBottom;
 
     public bool smallRight;
-
-    /// <summary>
-    /// 所有方塊右邊是否有其他方塊
-    /// </summary>
-    public bool[] smallRightAll;
- 
+    public bool smallLeft;
 
     private void CheakX()
     {

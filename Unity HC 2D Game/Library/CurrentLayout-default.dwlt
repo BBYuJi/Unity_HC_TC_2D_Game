@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 444}
   m_MaxSize: {x: 4002, y: 8044}
   vertical: 1
-  controlID: 61
+  controlID: 53
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 711, y: 572}
   m_MaxSize: {x: 18006, y: 18022}
   vertical: 0
-  controlID: 55
+  controlID: 52
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 572}
   m_MaxSize: {x: 10004, y: 18022}
   vertical: 1
-  controlID: 104
+  controlID: 75
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -426,19 +426,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - "Assets/\u9810\u5236\u7269"
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - "Assets/\u9810\u5236\u7269"
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\BBYuJi\Unity_HC_TC_2D_Game\Unity HC 2D Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 242e0000
-    m_LastClickedID: 11812
+    m_SelectedIDs: a62e0000
+    m_LastClickedID: 11942
     m_ExpandedIDs: 00000000582d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -640,9 +640,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.648344, y: -2.0406702, z: 148.4654}
+    m_Target: {x: 0.32547802, y: 0.90323794, z: 285.8203}
     speed: 2
-    m_Value: {x: 2.648344, y: -2.0406702, z: 148.4654}
+    m_Value: {x: 0.32547802, y: 0.90323794, z: 285.8203}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -675,9 +675,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.959222
+    m_Target: 10.029383
     speed: 2
-    m_Value: 4.959222
+    m_Value: 10.029383
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -732,9 +732,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ce360000
-      m_LastClickedID: 14030
-      m_ExpandedIDs: 72fbffff22330000be3a0000
+      m_SelectedIDs: 94faffff
+      m_LastClickedID: -1388
+      m_ExpandedIDs: b8e7ffff72fbffff22330000ee35000018380000b0380000be3a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
